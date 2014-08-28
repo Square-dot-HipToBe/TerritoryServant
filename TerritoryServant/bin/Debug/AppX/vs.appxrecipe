@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>TOK-LAPTOP004</Machine>
+    <WindowsUser>trevor</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <RegisteredManifestChecksum>2C7C6A0930B516C6A7F70C5BBF84741F9D3783FC0E3FB78180DCAD2319431D6F</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>430ca08c-a209-4115-8b7d-1b1dc755ce98_1.0.0.0_neutral__vwmd2mbsr7ajj</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>430ca08c-a209-4115-8b7d-1b1dc755ce98_vwmd2mbsr7ajj!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>430ca08c-a209-4115-8b7d-1b1dc755ce98</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=trevor</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-07-11T17:36:54.546</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\TerritoryServant.exe">
+      <PackagePath>TerritoryServant.exe</PackagePath>
+      <Modified>2014-07-11T18:30:47.275</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\TerritoryServant.pdb">
+      <PackagePath>TerritoryServant.pdb</PackagePath>
+      <Modified>2014-07-11T18:30:47.252</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\Logo.png">
+      <PackagePath>Assets\Logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-16T01:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\SmallLogo.png">
+      <PackagePath>Assets\SmallLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-16T01:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\SplashScreen.png">
+      <PackagePath>Assets\SplashScreen.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-16T01:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-16T01:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\LightGray.png">
+      <PackagePath>Assets\LightGray.png</PackagePath>
+      <Modified>2011-12-13T03:08:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\MediumGray.png">
+      <PackagePath>Assets\MediumGray.png</PackagePath>
+      <Modified>2011-12-13T03:08:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\Assets\DarkGray.png">
+      <PackagePath>Assets\DarkGray.png</PackagePath>
+      <Modified>2011-12-13T03:08:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\App.xaml">
+      <PackagePath>App.xaml</PackagePath>
+      <Modified>2014-07-11T18:16:51.637</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\Common\StandardStyles.xaml">
+      <PackagePath>Common\StandardStyles.xaml</PackagePath>
+      <Modified>2014-07-11T18:28:04.331</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\Views\GroupDetailPage.xaml">
+      <PackagePath>Views\GroupDetailPage.xaml</PackagePath>
+      <Modified>2014-07-11T17:34:10.154</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\Views\MainPage.xaml">
+      <PackagePath>Views\MainPage.xaml</PackagePath>
+      <Modified>2014-07-11T18:30:10.554</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\Views\TerritoryDetailPage.xaml">
+      <PackagePath>Views\TerritoryDetailPage.xaml</PackagePath>
+      <Modified>2014-07-11T17:35:02.353</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="c:\users\trevor.conversa\documents\visual studio 2012\Projects\TerritoryServant\TerritoryServant\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2014-07-11T17:36:54.461</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
