@@ -18,7 +18,7 @@
 
             <!-- Application-specific resources -->
 
-            <x:String x:Key="AppName">Territory Servant</x:String>
+            <x:String x:Key="AppName">Rochester Hills Congregation</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

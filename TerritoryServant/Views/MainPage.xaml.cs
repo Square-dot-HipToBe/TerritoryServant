@@ -1,4 +1,4 @@
-﻿// The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
+﻿ // The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerritoryServant", "TerritoryServant\TerritoryServant.csproj", "{4E11CF25-4D7A-42B6-85E9-0A858C609006}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerritoryServant.Data", "TerritoryServant.Data\TerritoryServant.Data.csproj", "{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{4E11CF25-4D7A-42B6-85E9-0A858C609006}.Release|x86.ActiveCfg = Release|x86
 		{4E11CF25-4D7A-42B6-85E9-0A858C609006}.Release|x86.Build.0 = Release|x86
 		{4E11CF25-4D7A-42B6-85E9-0A858C609006}.Release|x86.Deploy.0 = Release|x86
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E260EED-51DE-4B21-B9C4-4E4363DF98BF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
