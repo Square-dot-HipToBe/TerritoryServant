@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TerritoryServant.Data
 {
-    public class Class1
+    public class TerritoryCard
     {
     }
 }
