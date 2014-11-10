@@ -37,7 +37,7 @@
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->
-            <VisualStateGroup x:Name="ApplicationViewStates">
+            <VisualStateGroup x:Name="ApplicationViewStates" CurrentStateChanged="ApplicationViewStates_CurrentStateChanged">
                 <VisualState x:Name="FullScreenLandscape"/>
                 <VisualState x:Name="Filled"/>
 
@@ -131,7 +131,7 @@
 			Visibility="Collapsed"
 			Margin="0,-10,0,0"
 			Padding="10,0,0,60"
-			ItemsSource="{Binding TopItems}"
+			ItemsSource="{Binding Source={StaticResource GroupsCollectionSource}}"
 			ItemTemplate="{StaticResource Standard80ItemTemplate}"
 			SelectionMode="None"
 			IsSwipeEnabled="false"
@@ -148,7 +148,7 @@
 									Click="Header_Click"
 									Style="{StaticResource TextPrimaryButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding ServiceGroup}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
+                                        <TextBlock Text="{Binding Title}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
                                         <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
                                     </StackPanel>
                                 </Button>

@@ -28,11 +28,11 @@ namespace TerritoryServant.Data
             {
                 CurrentAssignment = -1,
                 DateLastWorked = DateTime.Now.AddDays(-1),
-                Name = string.Format("{0}",DateTime.Now.Second),
+                Name = string.Format("A{0}", DateTime.Now.Second),
                 Notes = "Here be some notes.",
-                ServiceGroup = "Hillendale",
-                Status = TerritoryStatus.CheckedIn,
-                Type = TerritoryType.Homes
+                ServiceGroup = "Marshbank",
+                Status = TerritoryStatus.CheckedOut,
+                Type = TerritoryType.Apartments
             };
             TerritoryItemsContext.Insert<TerritoryCard>(terr);
             TerritoryItemsContext.SaveChanges();
