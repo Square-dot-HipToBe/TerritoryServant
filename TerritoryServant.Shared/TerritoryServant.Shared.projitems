@@ -9,17 +9,28 @@
     <Import_RootNamespace>TerritoryServant</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
-    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Styles\StandardStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BindableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanNegationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TerritoryServantDbContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TerritoryStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TerritoryType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TerritoryCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TerritoryCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Data Storage for Windows 8.1 XAML, Version=2014.2.617">
+      <Name>Telerik Data Storage for Windows 8.1 XAML</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
+    </SDKReference>
   </ItemGroup>
 </Project>
