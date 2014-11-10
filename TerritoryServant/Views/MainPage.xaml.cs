@@ -3,16 +3,19 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using TerritoryServant.Common;
 using TerritoryServant.Data;
+using TerritoryServant.Models;
+using TerritoryServant.ViewModels;
 
 namespace TerritoryServant.Views
 {
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
-    public sealed partial class GroupedItemsPage : TerritoryServant.Common.LayoutAwarePage
+    public sealed partial class MainPage : LayoutAwarePage
     {
-        public GroupedItemsPage()
+        public MainPage()
         {
             this.InitializeComponent();
         }
@@ -28,9 +31,6 @@ namespace TerritoryServant.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var sampleDataGroups = SampleDataSource.GetGroups((String)navigationParameter);
-            this.DefaultViewModel["Groups"] = sampleDataGroups;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace TerritoryServant.Views
 
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            this.Frame.Navigate(typeof(Views.GroupDetailPage), ((TerritoryGroup)group).UniqueId);
+            //this.Frame.Navigate(typeof(Views.GroupDetailPage), ((TerritoryCollection)group).UniqueId);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace TerritoryServant.Views
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((TerritoryDataItem)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            //var itemId = ((TerritoryCard)e.ClickedItem).UniqueId;
+            //this.Frame.Navigate(typeof(ItemDetailPage), itemId);
         }
     }
 }
