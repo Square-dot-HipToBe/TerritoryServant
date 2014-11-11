@@ -58,8 +58,8 @@ namespace TerritoryServant.Views
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            //var itemId = ((TerritoryCard)e.ClickedItem).UniqueId;
-            //this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            long itemId = ((TerritoryCard)e.ClickedItem).UniqueId;
+            this.Frame.Navigate(typeof (TerritoryCardDetailView), itemId);
         }
     }
 }

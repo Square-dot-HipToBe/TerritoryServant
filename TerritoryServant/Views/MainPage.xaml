@@ -37,7 +37,7 @@
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->
-            <VisualStateGroup x:Name="ApplicationViewStates" CurrentStateChanged="ApplicationViewStates_CurrentStateChanged">
+            <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="FullScreenLandscape"/>
                 <VisualState x:Name="Filled"/>
 

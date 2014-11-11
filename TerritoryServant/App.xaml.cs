@@ -105,9 +105,12 @@ namespace TerritoryServant
         /// <param name="e">Details about the suspend request.</param>
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            TerritoryServantDbContext.CloseDatabases();
             var deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+         
     }
 }
