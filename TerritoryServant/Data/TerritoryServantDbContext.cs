@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Telerik.Storage.Extensions;
 using TerritoryServant.Models;
 
@@ -24,18 +25,18 @@ namespace TerritoryServant.Data
         public TerritoryServantDbContext()
         {
 #if DEBUG
-            var terr = new TerritoryCard()
-            {
-                CurrentAssignment = -1,
-                DateLastWorked = DateTime.Now.AddDays(-1),
-                Name = string.Format("A{0}", DateTime.Now.Second),
-                Notes = "Here be some notes.",
-                ServiceGroup = "Marshbank",
-                Status = TerritoryStatus.CheckedOut,
-                Type = TerritoryType.Apartments
-            };
-            TerritoryItemsContext.Insert<TerritoryCard>(terr);
-            TerritoryItemsContext.SaveChanges();
+            //var terr = new TerritoryCard()
+            //{
+            //    CurrentAssignment = -1,
+            //    DateLastWorked = DateTime.Now.AddDays(-1),
+            //    Name = string.Format("A{0}", DateTime.Now.Second),
+            //    Notes = "Here be some notes.",
+            //    ServiceGroup = "Marshbank",
+            //    Status = TerritoryStatus.CheckedOut,
+            //    Type = TerritoryType.Apartments
+            //};
+            //TerritoryItemsContext.Insert<TerritoryCard>(terr);
+            //TerritoryItemsContext.SaveChanges();
 #endif
         }
 
@@ -44,7 +45,7 @@ namespace TerritoryServant.Data
             CloseDatabases();
         }
 
-        public async void CloseDatabases()
+        public async static void CloseDatabases()
         {
             await TerritoryItemsContext.SaveChangesAsync();
             TerritoryItemsContext.CloseDatabase();
@@ -59,6 +60,18 @@ namespace TerritoryServant.Data
                 where x.Status == TerritoryStatus.CheckedIn
                 orderby x.DateLastWorked
                 select x;
+        }
+
+        public async static Task<TerritoryCard> GetCard(long id)
+        {
+           var cards = await TerritoryItemsContext.GetAsync<TerritoryCard>(string.Format("Select * from TerritoryCard where UniqueId = {0}", id));
+
+            return cards.First();
+        }
+
+        public static async void SaveAsync()
+        {
+            await TerritoryItemsContext.SaveChangesAsync();
         }
     }
 }
