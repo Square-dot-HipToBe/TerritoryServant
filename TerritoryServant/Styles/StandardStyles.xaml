@@ -1131,7 +1131,10 @@
         <Setter Property="FontWeight" Value="Normal"/>
     </Style>
 
-    <Style x:Key="ItemTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}"/>
+    <Style x:Key="ItemTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
+        <Setter Property="Foreground" Value="LightSlateGray" />
+        <Setter Property="Margin" Value="10,5,0,15"></Setter>
+    </Style>
 
     <Style x:Key="BodyTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontWeight" Value="SemiLight"/>
@@ -1144,6 +1147,7 @@
 
     <Style x:Key="GroupHeaderTextStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+        <Setter Property="Foreground" Value="{StaticResource AppPrimaryHighlightColor}" />
         <Setter Property="TextTrimming" Value="WordEllipsis"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="Typography.StylisticSet20" Value="True"/>
@@ -1670,8 +1674,9 @@
                 </Viewbox>
             </Border>
             <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                <TextBlock Text="{Binding ServiceGroup}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
-                <TextBlock Text="{Binding DateLastWorked, ConverterParameter=\{0:MMMM dd\, yyyy\}, Converter={StaticResource StringFormatConverter}}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                <TextBlock Text="{Binding ServiceGroup}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding DateLastWorked, ConverterParameter='\{0:MMMM dd\, yyyy\}', Converter={StaticResource StringFormatConverter}}" Style="{StaticResource CaptionTextStyle}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Height="20" Margin="15,0,15,0"/>
+                <TextBlock Text="{Binding Type}" Style="{StaticResource CaptionTextStyle}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Height="20" Margin="15,0,15,10"/>
             </StackPanel>
         </Grid>
     </DataTemplate>

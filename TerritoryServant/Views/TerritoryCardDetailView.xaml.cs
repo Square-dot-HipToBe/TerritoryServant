@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.System;
 using TerritoryServant.Common;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -94,5 +95,12 @@ namespace TerritoryServant.Views
         }
 
         #endregion
+
+        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || e.KeyStatus.RepeatCount > 0) return;
+            ViewModel.AddServiceGroup((sender as TextBox).Text);
+            (sender as TextBox).Text = string.Empty;
+        }
     }
 }

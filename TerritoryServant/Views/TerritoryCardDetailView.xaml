@@ -7,11 +7,87 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:TerritoryServant.Converters"
     xmlns:ViewModels="using:TerritoryServant.ViewModels"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
+    xmlns:System="using:System"
     x:Name="pageRoot"
     x:Class="TerritoryServant.Views.TerritoryCardDetailView"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+        <converters:TerritoryTypeConverter x:Key="TerritoryTypeConverter"/>
+        <Style x:Key="AddButtontemplate" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,4,12,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Page.DataContext>
         <ViewModels:TerritoryCardDetailVm/>
@@ -32,9 +108,69 @@
                   to show details for the current item
         -->
         <Grid Grid.Row="1" x:Name="contentRegion">
-            <StackPanel>
-                <TextBox Text="{Binding SelectedCard.Name, Mode=TwoWay}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="25,10,25,50" Grid.Column="0" >
+                    <TextBlock Text="Details" Style="{StaticResource HeaderTextStyle}" Padding="0,0,0,26" />
+                    <TextBlock Text="Name" Style="{StaticResource ItemTextStyle}" />
+                    <TextBox Text="{Binding SelectedCard.Name, Mode=TwoWay}" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Service Group" Style="{StaticResource ItemTextStyle}" Margin="10,5,0,11" />
+                        <TextBox Grid.Column="1" PlaceholderText="Add Service Group" Padding="10,8" KeyDown="TextBox_KeyDown"  />
+                        <Button Grid.Column="2" Content="&#xE109;" FontFamily="Segoe UI Symbol" Background="White" BorderBrush="White"  Height="46" Margin="-5" Foreground="Black" Style="{StaticResource AddButtontemplate}" />
+                    </Grid>
+                    <ListBox x:Name="ServiceGroupListBox" ItemsSource="{Binding AvailableServiceGroups}" SelectedItem="{Binding SelectedCard.ServiceGroup, Mode=TwoWay}" />
+                    <TextBlock Text="Type" Style="{StaticResource ItemTextStyle}" />
+                    <GridView SelectionMode="Single" ItemsSource="{Binding TerritoryTypes}" SelectedItem="{Binding SelectedCard.Type, Mode=TwoWay}">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="70" Height="70" BorderThickness="0" Background="{StaticResource AppBarBackgroundThemeBrush}">
+                                    <TextBlock Margin="10,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Converter={StaticResource TerritoryTypeConverter}}" />
+                                </Border>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                    <TextBlock Text="Notes" Style="{StaticResource ItemTextStyle}" />
+                    <TextBox Height="200" Text="{Binding SelectedCard.Notes, Mode=TwoWay}" AcceptsReturn="True"/>
+                </StackPanel>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="4"  Text="History" Style="{StaticResource HeaderTextStyle}" Margin="0,10,0,25" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Publisher"  Style="{StaticResource PageSubheaderTextStyle}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Date Out"  Style="{StaticResource PageSubheaderTextStyle}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Date Due"  Style="{StaticResource PageSubheaderTextStyle}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="Date Turned In"  Style="{StaticResource PageSubheaderTextStyle}"/>
+                    <Border Grid.Row="2" Grid.ColumnSpan="4" BorderThickness="0,1,0,0" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Margin="0,-30,0,0" />
+                </Grid>
+            </Grid>
         </Grid>
 
         <!-- Back button and page title -->
@@ -57,4 +193,6 @@
             </TextBlock>
         </Grid>
     </Grid>
+
+
 </common:LayoutAwarePage>
