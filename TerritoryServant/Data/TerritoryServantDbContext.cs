@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Telerik.Storage.Extensions;
@@ -72,6 +73,12 @@ namespace TerritoryServant.Data
         public static async void SaveAsync()
         {
             await TerritoryItemsContext.SaveChangesAsync();
+        }
+
+        public async static Task<IEnumerable<string>> GetServiceGroups()
+        {
+            var groups = await TerritoryItemsContext.GetAsync<TerritoryCard>("SELECT ServiceGroup from TerritoryCard");
+            return groups.GroupBy(g => g.ServiceGroup).Select(g => g.Key);
         }
     }
 }
