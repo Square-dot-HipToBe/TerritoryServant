@@ -1,11 +1,11 @@
 ﻿namespace TerritoryServant.Data
 {
-    public enum TerritoryType
+    public enum TerritoryType : int
     {
         Homes = 0,
-        Apartments = 1,
-        Business = 2,
-        Telephone = 4,
-        Public = 8
+        Apartments,
+        Business,
+        Telephone,
+        Public
     }
 }
