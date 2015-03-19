@@ -14,9 +14,9 @@ namespace TerritoryServant.Data
     {
         protected static Context TerritoryItemsContext { get { return _territoryItemsContext; } }
 
-        private static readonly Context _historyItemContext = new Context("HistoryDB", DatabaseLocation.Roaming);
+        private static readonly Context _historyItemContext = new Context("HistoryDB");
 
-        private static Context _territoryItemsContext= new Context("TerritoryDB", DatabaseLocation.Roaming);
+        private static Context _territoryItemsContext= new Context("TerritoryDB");
 
         protected static Context HistoryItemContext
         {
@@ -26,14 +26,13 @@ namespace TerritoryServant.Data
         public TerritoryServantDbContext()
         {
 #if DEBUG
-            //var terr = new TerritoryCard()
-            //{
+            //var terr = new TerritoryCard() {
             //    CurrentAssignment = -1,
             //    DateLastWorked = DateTime.Now.AddDays(-1),
             //    Name = string.Format("A{0}", DateTime.Now.Second),
             //    Notes = "Here be some notes.",
             //    ServiceGroup = "Marshbank",
-            //    Status = TerritoryStatus.CheckedOut,
+            //    Status = TerritoryStatus.CheckedIn,
             //    Type = TerritoryType.Apartments
             //};
             //TerritoryItemsContext.Insert<TerritoryCard>(terr);
@@ -46,7 +45,7 @@ namespace TerritoryServant.Data
             CloseDatabases();
         }
 
-        public async static void CloseDatabases()
+        public async static Task CloseDatabases()
         {
             await TerritoryItemsContext.SaveChangesAsync();
             TerritoryItemsContext.CloseDatabase();
@@ -70,7 +69,7 @@ namespace TerritoryServant.Data
             return cards.First();
         }
 
-        public static async void SaveAsync()
+        public static async Task SaveAsync()
         {
             await TerritoryItemsContext.SaveChangesAsync();
         }

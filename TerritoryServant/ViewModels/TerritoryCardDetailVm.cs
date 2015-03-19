@@ -32,14 +32,9 @@ namespace TerritoryServant.ViewModels
         }
 
 
-        public async void LoadState(long id)
+        public async Task LoadState(long id)
         {
             SelectedCard = await TerritoryServantDbContext.GetCard(id);
-
-            await GetAvailableServiceGroups();
-
-            
-            
         }
 
         private async Task GetAvailableServiceGroups()
