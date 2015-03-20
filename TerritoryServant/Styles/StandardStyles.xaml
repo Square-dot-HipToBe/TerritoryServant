@@ -1043,6 +1043,7 @@
     <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
 
     <SolidColorBrush x:Key="ApplicationForegroundThemeBrush" Color="{StaticResource AppPrimaryHighlightColor}"/>
+    <SolidColorBrush x:Key="ApplicationSecondaryBackgroundThemeBrush" Color="{StaticResource AppSecondaryBackgroundColor}"/>
     <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{StaticResource AppPrimaryBackgroundColor}"/>
     <SolidColorBrush x:Key="ApplicationHeaderForegroundThemeBrush" Color="{StaticResource AppSecondaryHighlightColor}"/>
     <SolidColorBrush x:Key="AppBarBackgroundThemeBrush" Color="{StaticResource AppPrimaryHighlightColor}"/>
@@ -1080,9 +1081,10 @@
     <!-- TextBlock styles -->
 
     <Style x:Key="BasicTextStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource ApplicationForegroundThemeBrush}"/>
+        <Setter Property="Foreground" Value="DarkGray"/>
         <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="SemiLight"/>
         <Setter Property="TextTrimming" Value="WordEllipsis"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Typography.StylisticSet20" Value="True"/>
@@ -1102,7 +1104,7 @@
     </Style>
 
     <Style x:Key="HeaderTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
-        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontWeight" Value="Light"/>
         <Setter Property="LineHeight" Value="40"/>
         <Setter Property="RenderTransform">
@@ -1142,7 +1144,6 @@
 
     <Style x:Key="CaptionTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Foreground" Value="{StaticResource ApplicationSecondaryForegroundThemeBrush}"/>
     </Style>
 
     <Style x:Key="GroupHeaderTextStyle" TargetType="TextBlock">
@@ -1427,7 +1428,7 @@
         <Setter Property="Foreground" Value="{StaticResource ApplicationPageBackgroundThemeBrush}"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
-        <Setter Property="Margin" Value="0,0,30,40"/>
+        <Setter Property="Margin" Value="10,0,10,14"/>
     </Style>
 
     <Style x:Key="PageSubheaderTextStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextStyle}">
@@ -1448,7 +1449,7 @@
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="Width" Value="48"/>
         <Setter Property="Height" Value="48"/>
-        <Setter Property="Margin" Value="36,0,36,36"/>
+        <Setter Property="Margin" Value="36,0,0,36"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
         <Setter Property="FontWeight" Value="Normal"/>
@@ -1662,57 +1663,35 @@
     </Style>
 
     <!-- Grid-appropriate 250 pixel square item template as seen in the GroupedItemsPage and ItemsPage -->
+    <Converters:StatusToButtonTextConverter Invert="True" x:Key="StatusToButtonTextInvertedConverter" />
     <DataTemplate x:Key="Standard250x250ItemTemplate">
-        <Grid HorizontalAlignment="Left" Width="250" Height="250">
+        <Grid HorizontalAlignment="Left" Width="250" Height="250" Background="White">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" >
+                <TextBlock Text="&#xE125;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding ServiceGroup}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" />
+                <TextBlock Text="&#xE18A;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding Type}" Style="{StaticResource CaptionTextStyle}" />
+            </StackPanel>
+            <Border BorderBrush="WhiteSmoke" BorderThickness="0,2,0,2" Grid.Row="1" >
                 <Viewbox HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="{Binding Name}" Foreground="White"/>
+                    <TextBlock Text="{Binding Name}" Foreground="DarkGray"/>
                 </Viewbox>
             </Border>
-            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                <TextBlock Text="{Binding ServiceGroup}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
-                <TextBlock Text="{Binding DateLastWorked, ConverterParameter='\{0:MMMM dd\, yyyy\}', Converter={StaticResource StringFormatConverter}}" Style="{StaticResource CaptionTextStyle}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Height="20" Margin="15,0,15,0"/>
-                <TextBlock Text="{Binding Type}" Style="{StaticResource CaptionTextStyle}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Height="20" Margin="15,0,15,10"/>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
-
-    <!-- Grid-appropriate 500 by 130 pixel item template as seen in the GroupDetailPage -->
-    <DataTemplate x:Key="Standard500x130ItemTemplate">
-        <Grid Height="110" Width="480" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
-
-    <!-- List-appropriate 130 pixel high item template as seen in the SplitPage -->
-    <DataTemplate x:Key="Standard130ItemTemplate">
-        <Grid Height="110" Margin="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+            <StackPanel Orientation="Vertical" Grid.Row="2" >
+                <TextBlock Text="{Binding DateLastWorked, ConverterParameter='\{0:MMMM dd\, yyyy\}', Converter={StaticResource StringFormatConverter}}" Style="{StaticResource CaptionTextStyle}" Height="20" Margin="15,0,5,10"/>
+                <Button BorderThickness="0" Command="{Binding CheckInOutCommand}" CommandParameter="{Binding UniqueId}">
+                    <Border CornerRadius="1" BorderBrush="DarkGray" BorderThickness="1">
+                        <StackPanel Margin="2" Orientation="Horizontal">
+                            <TextBlock Text="&#xE13C;" FontSize="20" Foreground="DarkGray" FontFamily="Segoe UI Symbol" />
+                            <TextBlock Text="{Binding Status, Converter={StaticResource StatusToButtonTextInvertedConverter}}" Style="{StaticResource BaselineTextStyle}" />
+                        </StackPanel>
+                    </Border>
+                </Button>
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -1737,43 +1716,7 @@
         </Grid>
     </DataTemplate>
 
-    <!-- Grid-appropriate 300 by 70 pixel item template as seen in the SearchResultsPage -->
-    <DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
-        <Grid Width="294" Margin="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="0,0,0,10" Width="40" Height="40">
-                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
-            </Border>
-            <StackPanel Grid.Column="1" Margin="10,-10,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
-
-    <!-- List-appropriate 70 pixel high item template as seen in the SearchResultsPage when Snapped -->
-    <DataTemplate x:Key="StandardSmallIcon70ItemTemplate">
-        <Grid Margin="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="0,0,0,10" Width="40" Height="40">
-                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
-            </Border>
-            <StackPanel Grid.Column="1" Margin="10,-10,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
-
-    <!--
+        <!--
       190x130 pixel item template for displaying file previews as seen in the FileOpenPickerPage
       Includes an elaborate tooltip to display title and description text
   -->
@@ -1852,6 +1795,219 @@
                 <TransitionCollection>
                     <EntranceThemeTransition/>
                 </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ToggleSwitchDefaultStyle" TargetType="ToggleSwitch">
+        <Setter Property="Foreground" Value="{ThemeResource ToggleSwitchForegroundThemeBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+        <Setter Property="MinWidth" Value="154"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleSwitch">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver"/>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchHeaderDisabledForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="OffContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchDisabledForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="OnContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchDisabledForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchOuterBorderDisabledBorderThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchTrackDisabledBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="SwitchKnob">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchThumbDisabledBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="SwitchKnob">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchThumbDisabledBorderThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="SwitchCurtain">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleSwitchCurtainDisabledBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ToggleStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition x:Name="DraggingToOnTransition" From="Dragging" GeneratedDuration="0" To="On">
+                                        <Storyboard>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobCurrentToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob"/>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.CurtainCurrentToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchCurtain"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition x:Name="DraggingToOffTransition" From="Dragging" GeneratedDuration="0" To="Off">
+                                        <Storyboard>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobCurrentToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob"/>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.CurtainCurrentToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchCurtain"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition x:Name="OnToOffTransition" From="On" GeneratedDuration="0" To="Off">
+                                        <Storyboard>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobOnToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob"/>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.CurtainOnToOffOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchCurtain"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition x:Name="OffToOnTransition" From="Off" GeneratedDuration="0" To="On">
+                                        <Storyboard>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.KnobOffToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchKnob"/>
+                                            <RepositionThemeAnimation FromHorizontalOffset="{Binding TemplateSettings.CurtainOffToOnOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" TargetName="SwitchCurtain"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Dragging"/>
+                                <VisualState x:Name="Off">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="-44" Storyboard.TargetProperty="X" Storyboard.TargetName="CurtainTranslateTransform"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="On">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="X" Storyboard.TargetName="CurtainTranslateTransform"/>
+                                        <DoubleAnimation Duration="0" To="38" Storyboard.TargetProperty="X" Storyboard.TargetName="KnobTranslateTransform"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ContentStates">
+                                <VisualState x:Name="OffContent">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="OffContentPresenter"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible" Storyboard.TargetName="OffContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="OnContent">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="OnContentPresenter"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible" Storyboard.TargetName="OnContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter x:Name="HeaderContentPresenter" AutomationProperties.AccessibilityView="Raw" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Foreground="{ThemeResource ToggleSwitchHeaderForegroundThemeBrush}" FontWeight="Semilight" Margin="6"/>
+                            <Grid Margin="{TemplateBinding Padding}" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="7"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="OffContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding OffContentTemplate}" Content="{TemplateBinding OffContent}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="6,5,0,16" MinWidth="65" Opacity="0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter x:Name="OnContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding OnContentTemplate}" Content="{TemplateBinding OnContent}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="6,5,0,16" MinWidth="65" Opacity="0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Grid Background="Transparent" Grid.Column="2" ManipulationMode="None">
+                                    <Grid x:Name="SwitchKnobBounds" Height="19" Margin="13,5,13,16">
+                                        <Border x:Name="OuterBorder" BorderBrush="DarkGray" BorderThickness="2">
+                                            <Border x:Name="InnerBorder" BorderBrush="{ThemeResource ToggleSwitchTrackBorderThemeBrush}" BorderThickness="1" Background="{ThemeResource ToggleSwitchTrackBackgroundThemeBrush}">
+                                                <ContentPresenter x:Name="SwitchCurtainBounds">
+                                                    <ContentPresenter x:Name="SwitchCurtainClip">
+                                                        <Rectangle x:Name="SwitchCurtain" Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="44">
+                                                            <Rectangle.RenderTransform>
+                                                                <TranslateTransform x:Name="CurtainTranslateTransform" X="-44"/>
+                                                            </Rectangle.RenderTransform>
+                                                        </Rectangle>
+                                                    </ContentPresenter>
+                                                </ContentPresenter>
+                                            </Border>
+                                        </Border>
+                                        <Rectangle x:Name="SwitchKnob" Fill="{StaticResource ApplicationSecondaryBackgroundThemeBrush}" HorizontalAlignment="Left" Stroke="{StaticResource ApplicationSecondaryBackgroundThemeBrush}" StrokeThickness="1" Width="12">
+                                            <Rectangle.RenderTransform>
+                                                <TranslateTransform x:Name="KnobTranslateTransform"/>
+                                            </Rectangle.RenderTransform>
+                                        </Rectangle>
+                                        <Rectangle x:Name="FocusVisualWhite" Margin="-3" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                                        <Rectangle x:Name="FocusVisualBlack" Margin="-3" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                                    </Grid>
+                                    <Thumb x:Name="SwitchThumb" AutomationProperties.AccessibilityView="Raw">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Rectangle Fill="Transparent"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="DefaultGridViewItemContainerStyle" TargetType="GridViewItem">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TabNavigation" Value="Local"/>
+        <Setter Property="IsHoldingEnabled" Value="True"/>
+        <Setter Property="Margin" Value="0,0,2,2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewItem">
+                    <GridViewItemPresenter CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}" 
+                                           CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}" 
+                                           ContentMargin="4" 
+                                           ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                           CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}" 
+                                           DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                           DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                           DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" 
+                                           DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                           FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}" 
+                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                           Padding="{TemplateBinding Padding}" 
+                                           PointerOverBackgroundMargin="1" 
+                                           PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" 
+                                           PointerOverBackground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" 
+                                           ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" 
+                                           SelectedPointerOverBorderBrush="{StaticResource ApplicationSecondaryForegroundThemeBrush}" 
+                                           SelectionCheckMarkVisualEnabled="True" 
+                                           SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}" 
+                                           SelectedPointerOverBackground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" 
+                                           SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}" 
+                                           SelectedBackground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" 
+                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>

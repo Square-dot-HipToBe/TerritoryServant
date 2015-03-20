@@ -29,16 +29,7 @@ namespace TerritoryServant.Views
     public sealed partial class TerritoryCardDetailView : LayoutAwarePage
     {
         private TerritoryCardDetailVm ViewModel { get { return (TerritoryCardDetailVm) DataContext; } }
-        private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
-
-        /// <summary>
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
-        }
+        private readonly NavigationHelper _navigationHelper;
 
         /// <summary>
         /// NavigationHelper is used on each page to aid in navigation and 
@@ -46,15 +37,25 @@ namespace TerritoryServant.Views
         /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get { return this.navigationHelper; }
+            get { return this._navigationHelper; }
         }
 
         public TerritoryCardDetailView()
         {
             this.InitializeComponent();
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += navigationHelper_LoadState;
+            this._navigationHelper = new NavigationHelper(this);
+            this._navigationHelper.LoadState += navigationHelper_LoadState;
         }
+
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// 
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="GridCS.Common.NavigationHelper.LoadState"/>
+        /// and <see cref="GridCS.Common.NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session
+        #region NavigationHelper registration
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -69,38 +70,19 @@ namespace TerritoryServant.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private async void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            ViewModel.LoadState(long.Parse(e.NavigationParameter.ToString()));
+            await ViewModel.LoadState(long.Parse(e.NavigationParameter.ToString()));
         }
-
-        #region NavigationHelper registration
-
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// 
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="GridCS.Common.NavigationHelper.LoadState"/>
-        /// and <see cref="GridCS.Common.NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            navigationHelper.OnNavigatedTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            Task.Run(()  => TerritoryServantDbContext.SaveAsync());
-            navigationHelper.OnNavigatedFrom(e);
+            TerritoryServantDbContext.SaveAsync().ConfigureAwait(false);
+            _navigationHelper.OnNavigatedFrom(e);
         }
 
         #endregion
-
-        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key != VirtualKey.Enter || e.KeyStatus.RepeatCount > 0) return;
-            ViewModel.AddServiceGroup((sender as TextBox).Text);
-            (sender as TextBox).Text = string.Empty;
-        }
     }
 }

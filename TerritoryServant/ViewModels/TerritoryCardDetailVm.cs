@@ -16,8 +16,14 @@ namespace TerritoryServant.ViewModels
 
         public TerritoryCard SelectedCard
         {
-            get { return _selectedCard; }
+            get { return _selectedCard ?? (_selectedCard = new TerritoryCard()); }
             set { SetProperty(ref _selectedCard, value); }
+        }
+
+        public TerritoryCardDetailVm()
+        {
+            GetAvailableServiceGroups().ConfigureAwait(false);
+            _selectedCard = new TerritoryCard();
         }
 
         public ObservableCollection<string> AvailableServiceGroups { get; set; }
@@ -45,6 +51,7 @@ namespace TerritoryServant.ViewModels
             {
                 AvailableServiceGroups.Add(g);
             }
+
         }
 
         public void AddServiceGroup(string serviceGroupName)
@@ -52,6 +59,14 @@ namespace TerritoryServant.ViewModels
             if (AvailableServiceGroups.Contains(serviceGroupName)) return;
             AvailableServiceGroups.Add(serviceGroupName);
             SelectedCard.ServiceGroup = serviceGroupName;
+        }
+
+        public async Task SaveAsync()
+        {
+            if (SelectedCard.UniqueId <= 0) {
+                TerritoryServantDbContext.CreateNewCard(ref _selectedCard);
+            }
+            await TerritoryServantDbContext.SaveAsync();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace TerritoryServant.Data
 
         ~TerritoryServantDbContext()
         {
-            CloseDatabases();
+            CloseDatabases().Wait();
         }
 
         public async static Task CloseDatabases()
@@ -78,9 +78,15 @@ namespace TerritoryServant.Data
 
         public async static Task<IEnumerable<string>> GetServiceGroups()
         {
-            var groups = await TerritoryItemsContext.GetAsync<TerritoryCard>("SELECT ServiceGroup from TerritoryCard");
+            var groups = await TerritoryItemsContext.GetAsync<TerritoryCard>("SELECT ServiceGroup from TerritoryCard;");
             return groups.GroupBy(g => g.ServiceGroup).Select(g => g.Key);
         }
+
+        public static void CreateNewCard(ref TerritoryCard _newCard)
+        {
+            TerritoryItemsContext.Insert<TerritoryCard>(_newCard);
+        }
+
         public static async Task<List<TerritoryCard>> GetCheckedOut()
         {
             return await TerritoryItemsContext.GetAsync<TerritoryCard>(

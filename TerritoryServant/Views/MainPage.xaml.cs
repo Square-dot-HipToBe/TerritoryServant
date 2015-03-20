@@ -7,6 +7,7 @@ using TerritoryServant.Common;
 using TerritoryServant.Data;
 using TerritoryServant.Models;
 using TerritoryServant.ViewModels;
+using TerritoryServant.Controls;
 
 namespace TerritoryServant.Views
 {
@@ -60,6 +61,11 @@ namespace TerritoryServant.Views
             // by passing required information as a navigation parameter
             long itemId = ((TerritoryCard)e.ClickedItem).UniqueId;
             this.Frame.Navigate(typeof (TerritoryCardDetailView), itemId);
+        }
+
+        private void Flyout_Closed(object sender, object e)
+        {
+            //(NewTerrCard.DataContext as TerritoryCardDetailVm).SaveAsync().ConfigureAwait(false);
         }
     }
 }
