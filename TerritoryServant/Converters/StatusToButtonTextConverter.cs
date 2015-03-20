@@ -14,7 +14,10 @@ namespace TerritoryServant.Converters
         public bool Invert { get; set; }
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (Invert & (TerritoryStatus) value == TerritoryStatus.CheckedIn) ? "Check In" : "Check Out";
+            var b = (TerritoryStatus) value == TerritoryStatus.CheckedIn;
+            if (Invert) 
+                return !b ? "Check In" : "Check Out";
+            return b ? "Check In" : "Check Out";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
