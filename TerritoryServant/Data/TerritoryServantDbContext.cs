@@ -54,17 +54,19 @@ namespace TerritoryServant.Data
             HistoryItemContext.CloseDatabase();
         }
 
-        public static IEnumerable<TerritoryCard> GetToBeWorked()
+        public static async Task<List<TerritoryCard>> GetToBeWorked()
         {
-            return from x in TerritoryItemsContext.GetAll<TerritoryCard>()
-                where x.Status == TerritoryStatus.CheckedIn
-                orderby x.DateLastWorked
-                select x;
+            return await TerritoryItemsContext.GetAsync<TerritoryCard>(
+                string.Format(
+                    "SELECT * from TerritoryCard " +
+                    "WHERE Status = {0} " +
+                    "ORDER By DateLastWorked DESC;", (int)TerritoryStatus.CheckedIn
+                    ));
         }
 
         public async static Task<TerritoryCard> GetCard(long id)
         {
-           var cards = await TerritoryItemsContext.GetAsync<TerritoryCard>(string.Format("Select * from TerritoryCard where UniqueId = {0}", id));
+           var cards = await TerritoryItemsContext.GetAsync<TerritoryCard>(string.Format("Select * from TerritoryCard where UniqueId = {0};", id));
 
             return cards.First();
         }
@@ -78,6 +80,15 @@ namespace TerritoryServant.Data
         {
             var groups = await TerritoryItemsContext.GetAsync<TerritoryCard>("SELECT ServiceGroup from TerritoryCard");
             return groups.GroupBy(g => g.ServiceGroup).Select(g => g.Key);
+        }
+        public static async Task<List<TerritoryCard>> GetCheckedOut()
+        {
+            return await TerritoryItemsContext.GetAsync<TerritoryCard>(
+                string.Format(
+                    "SELECT * from TerritoryCard " +
+                    "WHERE Status = {0} " +
+                    "ORDER By DateLastWorked DESC;", (int)TerritoryStatus.CheckedOut
+                    ));
         }
     }
 }
