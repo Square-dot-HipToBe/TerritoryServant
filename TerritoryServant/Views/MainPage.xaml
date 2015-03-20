@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:TerritoryServant.ViewModels"
     xmlns:controls="using:TerritoryServant.Controls"
+    xmlns:converters="using:TerritoryServant.Converters"
     x:Name="pageRoot"
     x:Class="TerritoryServant.Views.MainPage"
     mc:Ignorable="d">
@@ -23,7 +24,43 @@
         IsSourceGrouped="true"
         ItemsPath="TopItems"
         />
-        <ViewModels:TerritoryCardDetailVm x:Key="TerritoryCardDetailVm"/>
+
+        <!-- Grid-appropriate 250 pixel square item template as seen in the GroupedItemsPage and ItemsPage -->
+        <converters:StatusToButtonTextConverter Invert="True" x:Key="StatusToButtonTextInvertedConverter" />
+        <DataTemplate x:Key="Standard250x250ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="250" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" >
+                    <TextBlock Text="&#xE125;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
+                    <TextBlock Text="{Binding ServiceGroup}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" />
+                    <TextBlock Text="&#xE18A;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
+                    <TextBlock Text="{Binding Type}" Style="{StaticResource CaptionTextStyle}" />
+                </StackPanel>
+                <Border BorderBrush="WhiteSmoke" BorderThickness="0,2,0,2" Grid.Row="1" >
+                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <TextBlock Text="{Binding Name}" Foreground="DarkGray"/>
+                    </Viewbox>
+                </Border>
+                <StackPanel Orientation="Vertical" Grid.Row="2" >
+                    <StackPanel.Resources>
+                        <ViewModels:HomeVm x:Key="HomeVm"/>
+                    </StackPanel.Resources>
+                    <TextBlock Text="{Binding DateLastWorked, ConverterParameter='\{0:MMMM dd\, yyyy\}', Converter={StaticResource StringFormatConverter}}" Style="{StaticResource CaptionTextStyle}" Height="20" Margin="15,0,5,10"/>
+                    <Button BorderThickness="0" Click="CheckInOutClick">
+                        <Border CornerRadius="1" BorderBrush="DarkGray" BorderThickness="1">
+                            <StackPanel Margin="2" Orientation="Horizontal">
+                                <TextBlock Text="&#xE13C;" FontSize="20" Foreground="DarkGray" FontFamily="Segoe UI Symbol" />
+                                <TextBlock Text="{Binding Status, Converter={StaticResource StatusToButtonTextInvertedConverter}}" Style="{StaticResource BaselineTextStyle}" />
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
     <!--
         This grid acts as a root panel for the page that defines two rows:

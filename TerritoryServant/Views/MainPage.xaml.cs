@@ -67,5 +67,20 @@ namespace TerritoryServant.Views
         {
             //(NewTerrCard.DataContext as TerritoryCardDetailVm).SaveAsync().ConfigureAwait(false);
         }
+
+        private void CheckInOutClick(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+
+            var card = btn.DataContext as TerritoryCard;
+            if (card == null) return;
+
+            var vm = DataContext as HomeVm;
+            if (vm == null) return;
+
+
+            vm.CheckInOutCommand.Execute(card.UniqueId);
+        }
     }
 }
