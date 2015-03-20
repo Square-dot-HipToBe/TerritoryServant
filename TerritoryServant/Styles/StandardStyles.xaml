@@ -10,7 +10,8 @@
 
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="using:TerritoryServant.Converters">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="using:TerritoryServant.Converters"
+    xmlns:viewModels="using:TerritoryServant.ViewModels">
 
     <!-- Non-brush values that vary across themes -->
 
@@ -1662,39 +1663,7 @@
         </Setter>
     </Style>
 
-    <!-- Grid-appropriate 250 pixel square item template as seen in the GroupedItemsPage and ItemsPage -->
-    <Converters:StatusToButtonTextConverter Invert="True" x:Key="StatusToButtonTextInvertedConverter" />
-    <DataTemplate x:Key="Standard250x250ItemTemplate">
-        <Grid HorizontalAlignment="Left" Width="250" Height="250" Background="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" >
-                <TextBlock Text="&#xE125;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
-                <TextBlock Text="{Binding ServiceGroup}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" />
-                <TextBlock Text="&#xE18A;" FontFamily="Segoe UI Symbol" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,10"/>
-                <TextBlock Text="{Binding Type}" Style="{StaticResource CaptionTextStyle}" />
-            </StackPanel>
-            <Border BorderBrush="WhiteSmoke" BorderThickness="0,2,0,2" Grid.Row="1" >
-                <Viewbox HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <TextBlock Text="{Binding Name}" Foreground="DarkGray"/>
-                </Viewbox>
-            </Border>
-            <StackPanel Orientation="Vertical" Grid.Row="2" >
-                <TextBlock Text="{Binding DateLastWorked, ConverterParameter='\{0:MMMM dd\, yyyy\}', Converter={StaticResource StringFormatConverter}}" Style="{StaticResource CaptionTextStyle}" Height="20" Margin="15,0,5,10"/>
-                <Button BorderThickness="0" Command="{Binding CheckInOutCommand}" CommandParameter="{Binding UniqueId}">
-                    <Border CornerRadius="1" BorderBrush="DarkGray" BorderThickness="1">
-                        <StackPanel Margin="2" Orientation="Horizontal">
-                            <TextBlock Text="&#xE13C;" FontSize="20" Foreground="DarkGray" FontFamily="Segoe UI Symbol" />
-                            <TextBlock Text="{Binding Status, Converter={StaticResource StatusToButtonTextInvertedConverter}}" Style="{StaticResource BaselineTextStyle}" />
-                        </StackPanel>
-                    </Border>
-                </Button>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
+    
 
     <!--
         List-appropriate 80 pixel high item template as seen in the SplitPage when Filled, and
