@@ -60,7 +60,7 @@ namespace TerritoryServant.Data
                 string.Format(
                     "SELECT * from TerritoryCard " +
                     "WHERE Status = {0} " +
-                    "ORDER By DateLastWorked DESC;", (int)TerritoryStatus.CheckedIn
+                    "ORDER By DateLastWorked ASC;", (int)TerritoryStatus.CheckedIn
                     ));
         }
 
@@ -93,7 +93,7 @@ namespace TerritoryServant.Data
                 string.Format(
                     "SELECT * from TerritoryCard " +
                     "WHERE Status = {0} " +
-                    "ORDER By DateLastWorked DESC;", (int)TerritoryStatus.CheckedOut
+                    "ORDER By DateLastWorked ASC;", (int)TerritoryStatus.CheckedOut
                     ));
         }
     }
